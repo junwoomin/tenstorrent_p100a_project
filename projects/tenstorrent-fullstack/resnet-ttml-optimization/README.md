@@ -2,7 +2,7 @@
 
 ## 개요
 
-본 프로젝트는 P100a에서 ResNet backbone을 TTNN으로 실행하고 TTML 분류기를 학습하는 전이학습 실험이다. 기존 ResNet baseline의 Python 소스 24개를 실행 구조 그대로 `src/`에 복사하였다. 이후 레이어별 프로파일링과 메모리 배치 실험을 본 경로에서 기록한다.
+본 프로젝트는 P100a에서 ResNet backbone을 TTNN으로 실행하고 TTML 분류기를 학습하는 전이학습 실험이다. `x(1).zip`의 Python 소스 20개로 `src/`의 baseline을 교체하였다. 이후 레이어별 프로파일링과 메모리 배치 실험을 본 경로에서 기록한다.
 
 Backbone은 고정하며 3층 분류기만 학습한다. ResNet 전체의 역전파 학습 결과가 아니다. PyTorch 참조 모델과 독립 TTNN 모델, 그래프 비교 및 가중치 변환 코드를 포함한다.
 
@@ -10,10 +10,10 @@ Backbone은 고정하며 3층 분류기만 학습한다. ResNet 전체의 역전
 
 | 항목 | 사용자 보고값 |
 |---|---:|
-| Latency | 약 10 ms |
+| Latency | 약 9.5 ms |
 | 전력 | 약 55 W |
 
-두 값은 사용자가 제공한 초기 기준값이며 본 저장소 정리 과정에서 재측정하지 않았다. 학습·검증 구분, backbone 단독 또는 분류기 포함 여부와 측정 당시의 정확한 설정은 원본 로그를 추가하여 확정해야 한다. 정확도, loss, p50/p95 및 반복 측정 분산은 아직 보고되지 않았다. VGG 결과와 직접적인 가속 배율을 계산하지 않는다.
+지연시간은 최신 사용자 보고값인 9.5 ms로 갱신하였다. 전력은 기존 보고값 55 W를 유지하며 이번 교체본에서 재측정된 값인지는 확인되지 않았다. 두 값은 사용자 보고에 근거하며 본 저장소 정리 과정에서 재측정하지 않았다. 학습·검증 구분, backbone 단독 또는 분류기 포함 여부와 측정 당시의 정확한 설정은 원본 로그를 추가하여 확정해야 한다. 정확도, loss, p50/p95 및 반복 측정 분산은 아직 보고되지 않았다. VGG 결과와 직접적인 가속 배율을 계산하지 않는다.
 
 ## 현재 코드 기본 설정
 
@@ -40,7 +40,7 @@ Backbone은 고정하며 3층 분류기만 학습한다. ResNet 전체의 역전
 
 `train_ttml.py`는 입력의 TTNN 변환과 H2D 전송을 타이머 밖에서 수행한다. 장치 동기화 후 backbone과 classifier의 순전파를 각각 측정하고 평균을 합산한다. Loss, backward, optimizer step, metric 회수 및 checkpoint 저장은 이 합계에 포함하지 않는다. 따라서 순전파 합계를 학습 step 전체 지연시간으로 해석하지 않는다.
 
-전력은 warm-up 이후 순전파가 끝난 시점의 hwmon 표본 평균이다. 전체 PC 전력이나 시간 가중 평균 에너지를 의미하지 않는다. 약 10 ms와 55 W가 이 출력의 어느 구간에서 취득되었는지는 로그와 함께 추가 기록한다.
+전력은 warm-up 이후 순전파가 끝난 시점의 hwmon 표본 평균이다. 전체 PC 전력이나 시간 가중 평균 에너지를 의미하지 않는다. 약 9.5 ms와 55 W가 이 출력의 어느 구간에서 취득되었는지는 로그와 함께 추가 기록한다.
 
 ## 실행
 
@@ -68,23 +68,23 @@ python train_ttml.py
 | [src/layer_factory.py](src/layer_factory.py) | 연산 생성 및 설정 적용 |
 | [src/dataset.py](src/dataset.py) | 데이터 분할과 전처리 |
 | [src/dtype_config.py](src/dtype_config.py) | dtype/layout preset |
-| [src/tests/](src/tests/) | CPU 참조 및 fake TTNN 기반 테스트 |
+| [src/models/ttnn_conv.py](src/models/ttnn_conv.py) | ResNet stem Conv 전용 구현 |
+| [src/test_model_compatibility.py](src/test_model_compatibility.py) | CPU 가중치 변환 및 장치 forward 비교 |
 
 `src/`에서 다음 명령을 사용할 수 있다.
 
 ```bash
-python -m unittest discover -s tests -t . -v
 python test_model_compatibility.py --depth 50 --image-size 224 --batch-size 8 --cpu-weights
 python test_model_compatibility.py --depth 50 --image-size 224 --batch-size 8 --pretrained --device
 ```
 
-CPU 및 fake TTNN 검증은 실제 P100a 실행 검증을 대체하지 않는다. 이번 작업은 기존 주석 제거본을 그대로 복사한 것으로 실행 로직을 변경하지 않았다. 장치 실행과 성능 재측정은 수행하지 않았다.
+첨부본의 Python 파일만 반영하고 주석과 docstring을 제거하였다. 20개 파일의 문법 검사 및 docstring을 제외한 AST 동일성 검사를 통과하였다. 압축에 없는 기존 `tests/`의 5개 파일은 제거하였다. CPU 검증은 실제 P100a 실행 검증을 대체하지 않으며, 이번 정리에서는 장치 실행과 성능 재측정을 수행하지 않았다.
 
 ## 최적화 기록
 
 | 단계 | 변경 사항 | Latency | 전력 | 상태 |
 |---|---|---:|---:|---|
-| Baseline | 첨부 ResNet 코드 | 약 10 ms | 약 55 W | 사용자 보고; 상세 로그 추가 예정 |
+| Baseline | x(1).zip Python 교체본 | 약 9.5 ms | 약 55 W | 사용자 보고; 상세 로그 추가 예정 |
 
 추가 실험은 [EXPERIMENTS.md](EXPERIMENTS.md)에 기록한다. 실제 측정 전의 최적화 계획을 완료 결과로 기재하지 않는다.
 

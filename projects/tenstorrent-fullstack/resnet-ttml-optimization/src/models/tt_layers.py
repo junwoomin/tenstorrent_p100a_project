@@ -165,6 +165,7 @@ def tt_add(x, identity, name='add'):
         a = ttnn.to_layout(ttnn.to_memory_config(x.data, ttnn.DRAM_MEMORY_CONFIG), ttnn.TILE_LAYOUT)
         b = ttnn.to_layout(ttnn.to_memory_config(identity.data, ttnn.DRAM_MEMORY_CONFIG), ttnn.TILE_LAYOUT)
         return ttnn.add(a, b, memory_config=ttnn.DRAM_MEMORY_CONFIG)
+
     return apply(name, 'Add', {}, [x, identity], run)
 
 

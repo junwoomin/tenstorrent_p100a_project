@@ -1,3 +1,4 @@
+from .ttnn_conv import TTNNStemConv
 from .tt_layers import TTConv2d, TTMaxPool2d, TTGlobalAvgPool2d, TTFlatten, TTLinear, tt_add, tt_relu
 from .tt_tensor import input_value, result_value
 
@@ -73,8 +74,7 @@ class _ResNetIO:
         options, pools = layer_overrides or {}, pool_defaults or {}
         if set(pools) - {'max', 'global_avg'}:
             raise ValueError('pool_defaults keys must be max or global_avg')
-        self.conv1 = TTConv2d(3, 64, device, 7, 2, 3, batch_norm=True,
-            relu=True, name='conv1', defaults=cnn_defaults, config=options.get('conv1'))
+        self.conv1 = TTNNStemConv(device, defaults=cnn_defaults, config=options.get('conv1'))
         self.pool1 = TTMaxPool2d(3, 2, 1, name='pool1',
             defaults=pools.get('max'), config=options.get('pool1'))
         self.avgpool = TTGlobalAvgPool2d(name='avgpool',
