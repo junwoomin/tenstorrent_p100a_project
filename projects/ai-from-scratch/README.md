@@ -6,7 +6,7 @@
 
 | 순서 | 프로젝트 | 핵심 주제 | 상태 |
 |---:|---|---|---|
-| 1 | [VGG](vgg/README.md) | CNN 기본 구조와 feature hierarchy | 시작 전 |
+| 1 | [VGG](vgg/README.md) | CNN 구조 및 P100a 전이학습 최종 구현 | 최종 코드 수록; 순전파 학습 6.11 / 검증 6.30 ms |
 | 2 | [ResNet](resnet/README.md) | residual connection과 downsampling | 시작 전 |
 | 3 | [YOLO](yolo/README.md) | object detection과 NMS | 시작 전 |
 | 4 | [U-Net](unet/README.md) | semantic segmentation과 skip connection | 시작 전 |
