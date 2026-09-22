@@ -14,7 +14,7 @@ P100a에서 모델 실행과 학습을 검증하고, compiler·runtime·operator
 | TTML 최소 학습 예제 | 추가 예정 | 진행 예정 |
 | TT-XLA 실행 경로 분석 | 추가 예정 | 진행 예정 |
 | TT-NN custom operator | 추가 예정 | 진행 예정 |
-| TT-Metalium custom kernel | 추가 예정 | 진행 예정 |
+| Custom Add + ReLU fusion | [custom-add-relu-fusion](custom-add-relu-fusion/README.md) | 커널 소스 및 forward 6개 shape median 기록; ResNet block 실험 예정 |
 
 ## 실행 경로
 

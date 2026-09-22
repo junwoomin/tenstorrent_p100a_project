@@ -86,3 +86,7 @@ Checkpoint에는 분류기 가중치와 설정이 저장되며 backbone 가중�
 - [VGG 최적화 과정과 측정 범위](../vgg11-ttml-optimization/README.md)
 - [VGG 최종 구현](../../ai-from-scratch/vgg/README.md)
 - [기존 ResNet baseline 소스](../resnet-baseline/)
+
+## 후속 커널 실험
+
+[Custom Add + ReLU Fusion Benchmark](../custom-add-relu-fusion/README.md)에 커널 소스와 단독 forward 측정 결과를 기록하였다. 다음 단계는 ResNet residual block 비교이다. 현재 baseline 소스에는 custom kernel을 적용하지 않았으며 단독 연산 speedup을 모델 전체 성능 개선으로 간주하지 않는다.
