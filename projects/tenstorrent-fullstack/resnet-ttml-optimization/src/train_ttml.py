@@ -16,7 +16,6 @@ DATA_ROOT = "~/datasets/oxford_pet"
 RESNET_DEPTH = 50
 SAVE_DIR = Path(f"run/resnet{RESNET_DEPTH}_ttml")
 DOWNLOAD = False
-WEIGHTS = None
 IMAGE_SIZE = 224
 BATCH_SIZE = 8
 EPOCHS = 10
@@ -196,7 +195,7 @@ def main():
     try:
 
         backbone = FrozenResNet(
-            context.get_device(), RESNET_DEPTH, IMAGE_SIZE, WEIGHTS, batch_size=BATCH_SIZE,
+            context.get_device(), RESNET_DEPTH, IMAGE_SIZE, batch_size=BATCH_SIZE,
         )
         classifier = ResNetClassifier(backbone.out_features, NUM_CLASSES, HIDDEN_SIZE)
         optimizer_config = ttml.optimizers.AdamWConfig.make(
@@ -206,7 +205,6 @@ def main():
         optimizer = ttml.optimizers.AdamW(classifier.parameters(), optimizer_config)
 
         SAVE_DIR.mkdir(parents=True, exist_ok=True)
-        torch.save(backbone.state, SAVE_DIR / "backbone.pt")
         best_accuracy = -1.0
 
 
@@ -239,7 +237,6 @@ def main():
             checkpoint = {
                 "architecture": f"resnet{RESNET_DEPTH}",
                 "resnet_depth": RESNET_DEPTH,
-                "backbone_file": "backbone.pt",
                 "in_features": backbone.out_features,
                 "classifier": classifier.cpu_state_dict(),
                 "image_size": IMAGE_SIZE,

@@ -5,36 +5,22 @@ import ttml
 from ttml.modules import AbstractModuleBase, LinearLayer
 
 from optimization_config import CLASSIFIER_DTYPE
-from models.resnet_torch import TorchResNet18, TorchResNet50, TorchResNet101, load_reference_weights
 from models.resnet_ttnn import TTNNResNet18, TTNNResNet50, TTNNResNet101
-from compat.model_compare import compare_models
-from compat.weight_mapper import load_torch_weights_into_ttnn
 
 
-TORCH_MODELS = {18: TorchResNet18, 50: TorchResNet50, 101: TorchResNet101}
 TTNN_MODELS = {18: TTNNResNet18, 50: TTNNResNet50, 101: TTNNResNet101}
 
 
 class FrozenResNet:
-    def __init__(self, device, depth=18, image_size=112, weights_path=None, *,
+    def __init__(self, device, depth=18, image_size=112, *,
                  batch_size=None, cnn_defaults=None, pool_defaults=None, layer_overrides=None):
         if depth not in TTNN_MODELS:
             raise ValueError('depth must be 18, 50 or 101')
         self.device, self.depth, self.image_size = device, depth, image_size
-
         self.backbone = TTNN_MODELS[depth](device=device, image_size=image_size,
             batch_size=batch_size, cnn_defaults=cnn_defaults,
             pool_defaults=pool_defaults, layer_overrides=layer_overrides)
-        model = TORCH_MODELS[depth]().eval().requires_grad_(False)
-        load_reference_weights(model, depth, weights_path, pretrained=weights_path is None)
-        report = compare_models(model, self.backbone)
-        print(report)
-        if not report.compatible:
-            raise RuntimeError(str(report))
-        load_torch_weights_into_ttnn(model, self.backbone)
         self.out_features = self.backbone.out_features
-
-        self.state = {name:value.detach().cpu().clone() for name,value in model.state_dict().items()}
 
     def __call__(self, images):
         features = self.backbone(images)
@@ -44,8 +30,8 @@ class FrozenResNet:
 class FrozenResNet18(FrozenResNet):
 
 
-    def __init__(self, device, image_size=112, weights_path=None, **kwargs):
-        super().__init__(device, 18, image_size, weights_path, **kwargs)
+    def __init__(self, device, image_size=112, **kwargs):
+        super().__init__(device, 18, image_size, **kwargs)
 
 
 class ResNetClassifier(AbstractModuleBase):
