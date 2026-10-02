@@ -1,0 +1,686 @@
+{
+  "scope": "forward-only bottleneck, no BN/backward/training/trace",
+  "geometry": {
+    "batch": 8,
+    "input_H": 32,
+    "input_W": 32,
+    "Cin": 512,
+    "hidden_C": 256,
+    "Cout": 1024,
+    "stride": 2,
+    "output_H": 16,
+    "output_W": 16
+  },
+  "seed": 42,
+  "dtype": "BF16",
+  "layout": "TILE",
+  "memory": "DRAM input/weights/output; internal L1 CBs",
+  "fidelity": "HiFi4, FP32 destination accumulation",
+  "tt_metal_commit": "02fef3de6ebbf2e3d4a02452932d647b7e06c7af",
+  "patch_sha256": "7b167e37f58b5b03f23e708d43e6eeecf36046f681f83b5e115d84bcb5885f26",
+  "cpp_sha256": "0f610bc7822bbf01beee5d5f8156f7df6b95eefef8bd7a78d12ae2d8f4c9bf73",
+  "build_passed": true,
+  "unrun": [
+    "backward correctness/fix",
+    "full-model training",
+    "full-model timing",
+    "odd spatial/channel padding regression matrix",
+    "device-only cycle profiling",
+    "static-descriptor A/B",
+    "other seeds or geometries beyond listed small controls"
+  ],
+  "claim_limits": [
+    "DRAM congruence defect demonstrated and correction validated on tested shapes",
+    "not proven dominant performance bottleneck",
+    "no pre/post optimization speedup comparison against incorrect baseline",
+    "single device, one matched sample batch per route, eager synchronized host latency"
+  ],
+  "rtol": 0.05,
+  "atol": 0.02,
+  "correctness": [
+    {
+      "case": "post-reset-sharded-dense",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 6.454608228523284e-05,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-sharded-diagnostic",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 6.454608228523284e-05,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-sharded-sparse",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-small-downsample-verified",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.000422745943069458,
+          "failed_entries": 0,
+          "total_entries": 1024,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.000422745943069458,
+          "failed_entries": 0,
+          "total_entries": 1024,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.00390625,
+          "mean_abs": 7.02887773513794e-05,
+          "failed_entries": 0,
+          "total_entries": 1024,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.00040255486965179443,
+          "failed_entries": 0,
+          "total_entries": 1024,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.00040255486965179443,
+          "failed_entries": 0,
+          "total_entries": 1024,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-small-identity",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.00015250220894813538,
+          "failed_entries": 0,
+          "total_entries": 2048,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.00015250220894813538,
+          "failed_entries": 0,
+          "total_entries": 2048,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.00390625,
+          "mean_abs": 3.9424747228622437e-05,
+          "failed_entries": 0,
+          "total_entries": 2048,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.0001531355082988739,
+          "failed_entries": 0,
+          "total_entries": 2048,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 0.0001531355082988739,
+          "failed_entries": 0,
+          "total_entries": 2048,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-stream-bias",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-stream-dense",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 6.454608228523284e-05,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-stream-diagnostic",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005198957514949143,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 6.454608228523284e-05,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.015625,
+          "mean_abs": 0.0005162570159882307,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-stream-main-only",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.00390625,
+          "mean_abs": 0.00015260012878570706,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.00390625,
+          "mean_abs": 0.00015260012878570706,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.001953125,
+          "mean_abs": 5.3214891522657126e-05,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.00390625,
+          "mean_abs": 0.00015084297046996653,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.00390625,
+          "mean_abs": 0.00015084297046996653,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-stream-projection-only",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.01171875,
+          "mean_abs": 0.00035572046181187034,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.01171875,
+          "mean_abs": 0.00035572046181187034,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0078125,
+          "mean_abs": 3.5495133488439023e-05,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.009765625,
+          "mean_abs": 0.00035254168324172497,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.009765625,
+          "mean_abs": 0.00035254168324172497,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    },
+    {
+      "case": "post-reset-stream-sparse",
+      "passed": true,
+      "comparisons": [
+        {
+          "name": "TTNN separate vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "TTNN builtin fused vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom basic_block vs torch",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN separate",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        },
+        {
+          "name": "custom vs TTNN builtin fused",
+          "passed": true,
+          "max_abs": 0.0,
+          "mean_abs": 0.0,
+          "failed_entries": 0,
+          "total_entries": 2097152,
+          "finite": true
+        }
+      ]
+    }
+  ],
+  "timings": {
+    "stream": {
+      "warmups_per_candidate": 50,
+      "synchronized_samples_per_candidate": 200,
+      "timing": "perf_counter_ns bracket includes host dispatch, execution and completion sync; excludes compilation/uploads/weight prep",
+      "diagnostics_enabled": false,
+      "stats": {
+        "TTNN separate": {
+          "samples": 200,
+          "median_ms": 0.7457935,
+          "mean_ms": 0.838069545,
+          "min_ms": 0.556371,
+          "max_ms": 3.205231,
+          "p05_ms": 0.593483,
+          "p95_ms": 1.357544
+        },
+        "TTNN builtin fused": {
+          "samples": 200,
+          "median_ms": 0.682075,
+          "mean_ms": 0.767327195,
+          "min_ms": 0.524765,
+          "max_ms": 2.582557,
+          "p05_ms": 0.539642,
+          "p95_ms": 1.271937
+        },
+        "custom basic_block": {
+          "samples": 200,
+          "median_ms": 1.273503,
+          "mean_ms": 1.28362194,
+          "min_ms": 1.241249,
+          "max_ms": 1.497242,
+          "p05_ms": 1.252209,
+          "p95_ms": 1.344912
+        },
+        "ratios_custom_over_baseline": {
+          "TTNN separate": 1.7075812540602728,
+          "TTNN builtin fused": 1.8671011252428253
+        }
+      }
+    },
+    "sharded": {
+      "warmups_per_candidate": 50,
+      "synchronized_samples_per_candidate": 200,
+      "timing": "perf_counter_ns bracket includes host dispatch, execution and completion sync; excludes compilation/uploads/weight prep",
+      "diagnostics_enabled": false,
+      "stats": {
+        "TTNN separate": {
+          "samples": 200,
+          "median_ms": 0.7047055,
+          "mean_ms": 0.898834215,
+          "min_ms": 0.563699,
+          "max_ms": 2.765411,
+          "p05_ms": 0.583417,
+          "p95_ms": 1.679333
+        },
+        "TTNN builtin fused": {
+          "samples": 200,
+          "median_ms": 0.6381835,
+          "mean_ms": 0.80709893,
+          "min_ms": 0.518396,
+          "max_ms": 2.656949,
+          "p05_ms": 0.536559,
+          "p95_ms": 1.599284
+        },
+        "custom basic_block": {
+          "samples": 200,
+          "median_ms": 2.2793205,
+          "mean_ms": 2.2937155,
+          "min_ms": 2.213372,
+          "max_ms": 2.587808,
+          "p05_ms": 2.23602,
+          "p95_ms": 2.411734
+        },
+        "ratios_custom_over_baseline": {
+          "TTNN separate": 3.234429843388479,
+          "TTNN builtin fused": 3.571575416788431
+        }
+      }
+    }
+  },
+  "evidence_archive": "p100a-local-baseline-evidence.zip",
+  "evidence_summary_path": "approved-forward-validation/validation-summary.json",
+  "source_matches_applied_patch": true
+}
