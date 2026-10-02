@@ -2,6 +2,8 @@
 
 [한국어](README_ko.md)
 
+Building on the TTNN experience from VGG11, this project develops dedicated kernels for a ResNet bottleneck block inside TTNN using TT-Metalium. The goal is to design the block's computation, data movement, and L1 buffer use directly.
+
 Implemented a TT-Metalium operation that combines 1×1 Conv + ReLU, 3×3 Conv + ReLU, 1×1 Conv, identity/projection shortcut, and residual Add + ReLU. The API retains the name `basic_block`; its computation is a ResNet-style bottleneck without BatchNorm.
 
 ## Work completed

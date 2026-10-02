@@ -2,7 +2,9 @@
 
 [한국어](README_ko.md)
 
-Run an ImageNet-pretrained VGG11 backbone with TTNN and train a three-layer TTML classifier on Oxford-IIIT Pet (37 classes). The backbone is frozen; the classifier is trained.
+This was my first TTNN project on P100a. I used VGG11 to understand the basic TTNN configuration and execution flow, including tensor dtype/layout, device setup, convolution options, and memory placement, before tuning the runtime settings.
+
+The implementation runs an ImageNet-pretrained VGG11 backbone with TTNN and trains a three-layer TTML classifier on Oxford-IIIT Pet (37 classes). The backbone is frozen; the classifier is trained.
 
 ## Work completed
 

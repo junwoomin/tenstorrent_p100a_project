@@ -2,11 +2,11 @@
 
 [한국어](README_ko.md)
 
-Implementation and optimization work on the Tenstorrent P100a (Blackhole), using TTNN, TTML, and TT-Metalium.
+A progression from learning the basic TTNN configuration and execution flow with VGG11 to developing dedicated ResNet bottleneck kernels with TT-Metalium on the Tenstorrent P100a (Blackhole).
 
 | Project | Work |
 |---|---|
-| [VGG11](projects/vgg/README.md) | Frozen TTNN backbone, TTML classifier training, and runtime/memory configuration tuning. |
-| [Custom Block](projects/block/README.md) | Fused convolution/residual bottleneck with resident, sharded, and stream execution paths. |
+| [VGG11](projects/vgg/README.md) | First TTNN project: understand the basic configuration and execution flow, then tune VGG11 and train a TTML classifier. |
+| [Custom Block](projects/block/README.md) | Dedicated ResNet bottleneck kernel development, with fused convolution/residual operations and resident, sharded, and stream paths. |
 
 Each project contains its source and a short record of the work and results.

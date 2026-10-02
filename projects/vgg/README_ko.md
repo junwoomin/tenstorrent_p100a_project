@@ -2,6 +2,8 @@
 
 [English](README.md)
 
+P100a에서 처음 TTNN을 사용하며 기본 구성과 실행 흐름을 확인한 프로젝트입니다. VGG11을 통해 tensor의 dtype·layout, 장치 설정, Conv 옵션과 메모리 배치를 익히고, 이를 바탕으로 실행 설정을 최적화했습니다.
+
 ImageNet 사전학습 VGG11 backbone을 TTNN으로 실행하고 Oxford-IIIT Pet 37개 품종을 분류하는 3층 TTML 분류기를 학습했습니다. Backbone은 고정하고 분류기만 학습합니다.
 
 ## 수행한 작업

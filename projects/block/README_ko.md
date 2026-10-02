@@ -2,6 +2,8 @@
 
 [English](README.md)
 
+VGG11에서 익힌 TTNN 사용 경험을 바탕으로, TTNN 내부에서 실행할 ResNet bottleneck 전용 커널을 TT-Metalium으로 직접 개발하는 프로젝트입니다. 블록의 연산뿐 아니라 데이터 이동과 L1 버퍼 사용까지 직접 설계하는 것이 목표입니다.
+
 1×1 Conv + ReLU → 3×3 Conv + ReLU → 1×1 Conv에 identity/projection shortcut과 residual Add + ReLU를 결합한 TT-Metalium 연산을 구현했습니다. API 이름은 `basic_block`이지만 실제 구조는 BatchNorm 없는 ResNet형 bottleneck입니다.
 
 ## 수행한 작업
