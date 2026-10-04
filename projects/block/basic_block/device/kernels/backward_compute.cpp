@@ -1,3 +1,8 @@
+
+
+
+
+
 #include <cstdint>
 #include "api/compute/common.h"
 #include "api/compute/matmul.h"
@@ -10,6 +15,9 @@
 using namespace ckernel;
 using namespace bottleneck_backward;
 
+
+
+
 void kernel_main() {
     const uint32_t count = get_arg_val<uint32_t>(0);
     constexpr uint32_t left = mode == BIAS_GRAD ? cb_ones : cb_a;
@@ -19,10 +27,13 @@ void kernel_main() {
         DataflowBuffer zero(cb_zero);
         zero.wait_front(1);
     }
-    if constexpr (mode == BIAS_GRAD) a.wait_front(1);
+    if constexpr (mode == BIAS_GRAD) {
+        a.wait_front(1);
+    }
     for (uint32_t job = 0; job < count; ++job) {
         out.reserve_back(1);
         tile_regs_acquire();
+
         if constexpr (mode == ADD) {
             a.wait_front(1);
             b.wait_front(1);
@@ -39,22 +50,35 @@ void kernel_main() {
         } else {
             constexpr uint32_t initial = mode == FORWARD ? cb_bias : cb_zero;
             DataflowBuffer seed(initial);
-            if constexpr (mode == FORWARD) seed.wait_front(1);
+            if constexpr (mode == FORWARD) {
+                seed.wait_front(1);
+            }
             reconfig_data_format_srca(initial);
             copy_init(initial);
             copy_tile(initial, 0, 0);
-            if constexpr (mode == FORWARD) seed.pop_front(1);
+            if constexpr (mode == FORWARD) {
+                seed.pop_front(1);
+            }
             reconfig_data_format<SrcOrder::Reverse>(left, cb_b);
+
+
             matmul_init(left, cb_b, mode == INPUT_GRAD ? 1 : 0);
-            const uint32_t reduction = mode == FORWARD ? taps * cin_tiles :
-                (mode == INPUT_GRAD ? taps * cout_tiles : tiles(geometry.output_rows()));
-            // The entire reduction for this output tile stays in FP32 DST.
-            // dW/db reduce every spatial tile locally: no cross-core atomics.
+            const uint32_t reduction =
+                mode == FORWARD
+                    ? taps * cin_tiles
+                    : (mode == INPUT_GRAD ? taps * cout_tiles : tiles(geometry.output_rows()));
+
+
+
             for (uint32_t k = 0; k < reduction; ++k) {
-                if constexpr (mode != BIAS_GRAD) a.wait_front(1);
+                if constexpr (mode != BIAS_GRAD) {
+                    a.wait_front(1);
+                }
                 b.wait_front(1);
                 matmul_tiles(left, cb_b, 0, 0, 0);
-                if constexpr (mode != BIAS_GRAD) a.pop_front(1);
+                if constexpr (mode != BIAS_GRAD) {
+                    a.pop_front(1);
+                }
                 b.pop_front(1);
             }
             if constexpr (mode == FORWARD && apply_relu) {
@@ -72,5 +96,7 @@ void kernel_main() {
         DataflowBuffer zero(cb_zero);
         zero.pop_front(1);
     }
-    if constexpr (mode == BIAS_GRAD) a.pop_front(1);
+    if constexpr (mode == BIAS_GRAD) {
+        a.pop_front(1);
+    }
 }

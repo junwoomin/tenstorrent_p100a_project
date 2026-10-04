@@ -1,5 +1,10 @@
-# Included by the generated operation parent CMakeLists.txt.
-# This is an in-tree TTNN operation, not a standalone CMake project.
+
+
+
+
+
+
+
 target_sources(
     ttnncpp
     PRIVATE
@@ -7,6 +12,7 @@ target_sources(
         ${CMAKE_CURRENT_SOURCE_DIR}/device/program_factory.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/device/resident_program_factory.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/device/sharded_program_factory.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/device/stream_program_factory.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/device/backward_device_operation.cpp
 )
 
@@ -22,6 +28,7 @@ target_sources(
             ${CMAKE_CURRENT_SOURCE_DIR}/device/backward_device_operation.hpp
 )
 
+
 if(TARGET ttnn)
     target_sources(
         ttnn
@@ -29,6 +36,8 @@ if(TARGET ttnn)
             ${CMAKE_CURRENT_SOURCE_DIR}/basic_block_nanobind.cpp
     )
 endif()
+
+
 
 install(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/device/kernels/

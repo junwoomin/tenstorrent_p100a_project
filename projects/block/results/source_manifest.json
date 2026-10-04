@@ -1,163 +1,175 @@
 {
-  "baseline": "2026-09-30 forward correctness fix",
-  "tt_metal_commit": "02fef3de6ebbf2e3d4a02452932d647b7e06c7af",
-  "applied_patch_sha256": "7b167e37f58b5b03f23e708d43e6eeecf36046f681f83b5e115d84bcb5885f26",
-  "tested_cpp_sha256": "0f610bc7822bbf01beee5d5f8156f7df6b95eefef8bd7a78d12ae2d8f4c9bf73",
-  "source_archive": "p100a-local-baseline-evidence.zip",
-  "archive_sha256": "aa239341af8c4dd71786708cd18d535f7eb6eabb5048243744f97becb6ec7f69",
-  "source_path_in_archive": "proposal/basic_block",
+  "source_archive": "basic_block_v7_no_debug(1).zip",
+  "source_archive_sha256": "5b8534ba3a5e717ccf163131478328fc7e78a1c86604290d2378481d89082a37",
+  "published_archive": "basic_block_v7_gpt_stable.zip",
+  "published_archive_sha256": "490cf632386d9eaae119af678c9234a8604cc29d92aef0bb453ff2290a683329",
+  "change": "Removed C++ and CMake comments only; executable tokens, string literals and line boundaries preserved.",
+  "offline_verification": "All 33 files checked; archive roundtrip verified. No SDK build or P100a execution performed.",
   "files": [
     {
-      "path": "CMakeLists.txt",
-      "sha256": "8b4805b775d8c6d352330df3f79d9852c42284c6084d0046678baca752f156a9"
+      "path": "projects/block/basic_block/CMakeLists.txt",
+      "original_sha256": "b8c1c80de6f93d2dc0751eb575cc9b97b6650151b3481b07b41dc948e847eccc",
+      "cleaned_sha256": "d35eb21d6a9c3005406cf984072cddcb30cbc8c211927a004e0d7b88adcc02ef"
     },
     {
-      "path": "basic_block.hpp",
-      "sha256": "32a22f2b8eb9134818d2a4544f7c025116ded337034e99f8bd39d11bbe050875"
+      "path": "projects/block/basic_block/basic_block.hpp",
+      "original_sha256": "a991cb2287c766979cfda6af86f6ba972efdaf6267092bf86c1b9380d1b54833",
+      "cleaned_sha256": "07999f643ea2a9297279b5c47e5cb9c9cf9898f9a707bcc9d37da7a17198a178"
     },
     {
-      "path": "basic_block_nanobind.cpp",
-      "sha256": "32245712a2d418ebedd6fe359a64785d82062786f6a86821c07fa727eeed8afc"
+      "path": "projects/block/basic_block/basic_block_nanobind.cpp",
+      "original_sha256": "10204fc1908beb3d2ebf43d0094320e6b5f1016e07644a7c9e5aebdec6ce3bd8",
+      "cleaned_sha256": "2cdc593623fcd2dc3da2b92fadbf4501a141eeb90d51fd2562e3a0a7763796e8"
     },
     {
-      "path": "basic_block_nanobind.hpp",
-      "sha256": "45a30126e6149f2becfbed8211d9b35185101695f9796b84c941a612ea81f8af"
+      "path": "projects/block/basic_block/basic_block_nanobind.hpp",
+      "original_sha256": "6069d2b458adc00f702b4518634c1bbc32bae79c3db37de4410de718abe78634",
+      "cleaned_sha256": "c58c1fe333077121e2940e760122471a36abb280bc77f084212f08e87d4d951a"
     },
     {
-      "path": "device/backward_device_operation.cpp",
-      "sha256": "f33440385dfb7d490f3ff9dd0a42aeae36cbcc756bea43d38a09460a9ebfaf73"
+      "path": "projects/block/basic_block/device/backward_device_operation.cpp",
+      "original_sha256": "8cc546d49ad556cecdb8364f82df12ee9f1b6991bb56f9097f11c31e875e1014",
+      "cleaned_sha256": "f6ff4bf618bdce0761089f6bd025dd286a5c023f06d5a4434de40e3678ede0f6"
     },
     {
-      "path": "device/backward_device_operation.hpp",
-      "sha256": "740ca3e475ebcea6eb78803afc88b4afb7f2621dc5ba3c3e33a1b9dfcf5c2e6e"
+      "path": "projects/block/basic_block/device/backward_device_operation.hpp",
+      "original_sha256": "5aedc4ef4bbf563090e6c9f72f8059a0b87a050a6eb2a707173a6d58524429ca",
+      "cleaned_sha256": "9820e36d0df2b4655bb6491127fa5c4ce2951d8384e20c3f55a0cac559e41ff9"
     },
     {
-      "path": "device/device_operation.cpp",
-      "sha256": "f2f54b6e00a958bbc067452fe942f5693e68a8fce58d3f30d18ed6b9865bc715"
+      "path": "projects/block/basic_block/device/device_operation.cpp",
+      "original_sha256": "b9cffc50baaf754896d2304ddea9c222d5087bf4e381797c9bf7bc48450b5493",
+      "cleaned_sha256": "a9c71911dcf1b6027836374c085e3d694c4af070b24ea7fdc66ffd55aa4428a5"
     },
     {
-      "path": "device/device_operation.hpp",
-      "sha256": "dc81eba21a13d9e003d51a0174d60dcca6591705f1ef77ad5efa3516b6c08cd7"
+      "path": "projects/block/basic_block/device/device_operation.hpp",
+      "original_sha256": "0677a45fb38663b1558b7791a6ba9cf791eddb02d0cbdb4a04f8c9209f7b1401",
+      "cleaned_sha256": "72936f5e8c71843236a613c5a57bf60a99ef63603d5c65bf611893f2e7cabde6"
     },
     {
-      "path": "device/host_common.hpp",
-      "sha256": "93d6c83b0a8e505fc038cfd5691a8ab4b5bbc90c995fe940dd5f307daab5f1ac"
+      "path": "projects/block/basic_block/device/host_common.hpp",
+      "original_sha256": "21bf420633cee223ff911e38ee0cf9542571921d0920e4e0df2ba5f0e2294907",
+      "cleaned_sha256": "55944aebae9f3a19e55661b93b2b50c666de4c99cb581da97671fbe2808e99d8"
     },
     {
-      "path": "device/kernels/backward_common.hpp",
-      "sha256": "88619e31e02469a54dde28afcc31255c9f94067d38d6aa6b650aaa02176b0083"
+      "path": "projects/block/basic_block/device/kernels/backward_common.hpp",
+      "original_sha256": "eadc36919387d51f700f9aed9bb324e988f1568ab24a5def68bd4ad13b87de1f",
+      "cleaned_sha256": "5e6b66dbed0c7e01bedbca312d14cffc703ff79370f85468c5a3c598ce940ebb"
     },
     {
-      "path": "device/kernels/backward_compute.cpp",
-      "sha256": "36ae1a49de1b64ccf88632bf6f3303b2909881582a4122813f12b6f621740f4d"
+      "path": "projects/block/basic_block/device/kernels/backward_compute.cpp",
+      "original_sha256": "b6df7f554956945d7a876ba9bd6918abadfa78c7cf93a7654b7f285a3a7a147f",
+      "cleaned_sha256": "7610be14cd2e0093d849a63996b38f0db88f0776c7416ec263dc76e51973d2a2"
     },
     {
-      "path": "device/kernels/backward_reader.cpp",
-      "sha256": "e6aa36d2d452568cdb94ae12d0265644ca54953fd5e98a5ca27dfc9784c62748"
+      "path": "projects/block/basic_block/device/kernels/backward_reader.cpp",
+      "original_sha256": "115bfa892bc78cae9f43b8c1d765d568834c33aeb79132e8d4c25791b6573a17",
+      "cleaned_sha256": "2cb5d992960a781725135dd7e8177841db5533883436e1e50e54d43c9bc0578a"
     },
     {
-      "path": "device/kernels/backward_writer.cpp",
-      "sha256": "23d782db715826da29cb08240df5b71d808a9795ef34dc9a04596dec9a0721bc"
+      "path": "projects/block/basic_block/device/kernels/backward_writer.cpp",
+      "original_sha256": "7fcb688b0d0f883e144d5b4788c6ae9fa0c8523e13be59ca50c42c4f6c14932d",
+      "cleaned_sha256": "c1902f872ad1da7a9c4ed9dd67e7c39105642b1cdd64eec7ae113def9c7b9cc5"
     },
     {
-      "path": "device/kernels/block_geometry.hpp",
-      "sha256": "168d56cb4bd7e73b987678787974c77b710244aa921bac855ac069c0cef70289"
+      "path": "projects/block/basic_block/device/kernels/block_geometry.hpp",
+      "original_sha256": "9e8ae9566b349f99038b9d6914e19463dafbdf46587e1581473df93e94376a7c",
+      "cleaned_sha256": "5bc8378af56735cff55f4f558b68dbd199195ba869e68c88321f1436a078312c"
     },
     {
-      "path": "device/kernels/compute.cpp",
-      "sha256": "be489d541a76a2a68c9151ec821b0657d48b0fd48cb66e1aff54dbe7de914b35"
+      "path": "projects/block/basic_block/device/kernels/compute.cpp",
+      "original_sha256": "8e821537c4d06a85f6804aac24ecb526eb93dd546d5555dbc08060d01b3f71de",
+      "cleaned_sha256": "0a5c9229a9c415043315e718a2f7974445ddc47c0acba1e0ee20facc327b2910"
     },
     {
-      "path": "device/kernels/direct_cache_plan.hpp",
-      "sha256": "ea33cc3ff294572deefa914a6bbdd104532b81fcce417fc30ff7c72cc5d5779f"
+      "path": "projects/block/basic_block/device/kernels/direct_cache_plan.hpp",
+      "original_sha256": "b5ca08a8b5ddd14f49b844f1721599104e6b2bbe04226895050f22e49eac0d73",
+      "cleaned_sha256": "e6d9bde735d91ff16775707d76f903d7567f83a6fffe33adefb72d3c5e44ccc3"
     },
     {
-      "path": "device/kernels/dram_gather.hpp",
-      "sha256": "3dc831bd3b9105af01d3e2a58751abcae4f7791217813ce0f244a8021bd85ab1"
+      "path": "projects/block/basic_block/device/kernels/l1_plan.hpp",
+      "original_sha256": "f0f9cd9a8aa249ab9c2e42c548279efc81832b4bbf03b3af9df863b579a82821",
+      "cleaned_sha256": "43eafefa4dac2958cfd1dbe1b5cc84b00f9e7b21012adc84914409757f81e6d8"
     },
     {
-      "path": "device/kernels/l1_plan.hpp",
-      "sha256": "93df5aabdbd71a369cc8e67e6b6ba00629bf7d2fe4b1034bb951cbb9f480b88a"
+      "path": "projects/block/basic_block/device/kernels/reader.cpp",
+      "original_sha256": "bd2a0ded2e66a59f071e6dd5349a7fe009ae7f7b91b9821cc87212dd4f321495",
+      "cleaned_sha256": "fda2b80e8985c33f0385906960278c4444d80ee6374981bbfc7a3f33ae26cac1"
     },
     {
-      "path": "device/kernels/reader.cpp",
-      "sha256": "74401f412b6b40b8effacd01e64ad6f23296971c66138d84b4de4a7015106af1"
+      "path": "projects/block/basic_block/device/kernels/resident_compute.cpp",
+      "original_sha256": "d7a786a2ce4474a0b760f974d814dd5202c8b72181336f7cab2bb617d8847619",
+      "cleaned_sha256": "82c21be650c7d35197549fa3e83fc48a44c2efd95fd1aa6352e63f06b87f632f"
     },
     {
-      "path": "device/kernels/resident_compute.cpp",
-      "sha256": "c60893060be28fa86d8200e6d71f6f3ce8e6a664e3348eb7274a50ed4bfd4a58"
+      "path": "projects/block/basic_block/device/kernels/resident_reader.cpp",
+      "original_sha256": "493cd448901683bd50770bd4e8dca6bb94957fd01ccaf0ec17220d8568cd7a3c",
+      "cleaned_sha256": "00a88830020f514ed8529d38edc311f4cdc9b5a3ea31035a69858f9b087c8f57"
     },
     {
-      "path": "device/kernels/resident_reader.cpp",
-      "sha256": "097202f27a72f79e0cde1356f2c0e7878736da69b55e1bf47b5c4cccaf7e7bfd"
+      "path": "projects/block/basic_block/device/kernels/resident_writer.cpp",
+      "original_sha256": "a5f5550c94a62c6bda36389235f90bda7b6fee2a9c1701fd693d487984291610",
+      "cleaned_sha256": "4127e4fc1fd5bdc635c25065f8843e8c5eaa7241c5be692903095b89d07ed73f"
     },
     {
-      "path": "device/kernels/resident_writer.cpp",
-      "sha256": "e6c50e86729a58202ebfda62b2f342aaa8cd03e72f75875391511f5354f58158"
+      "path": "projects/block/basic_block/device/kernels/sharded_common.hpp",
+      "original_sha256": "43d8cae3eb19d8e04da11b09de427788dbcf642680f1762607b426408f0c2df9",
+      "cleaned_sha256": "e910da20a794a9fa29c43d3a42860fed5a9a4f3f9054c6ad21bbbaf9ca5e01fe"
     },
     {
-      "path": "device/kernels/sharded_common.hpp",
-      "sha256": "3b8d5da94b08f062c18f1bdab4479e3a531b1b0d46780f7f104ee35deeed1a6c"
+      "path": "projects/block/basic_block/device/kernels/sharded_compute.cpp",
+      "original_sha256": "01415984be9714a1edc739ec0d0863820a7443773f871ae1ba00a71ba79ebb67",
+      "cleaned_sha256": "79c6f0200452177c09bb93fdf7011a98b4a456aac680d64cc5c16e0ad3d49192"
     },
     {
-      "path": "device/kernels/sharded_compute.cpp",
-      "sha256": "db6f673208b2aab7e5ea0a0ba836081517bbbc229338119ed3c8833c866cd3d0"
+      "path": "projects/block/basic_block/device/kernels/sharded_plan.hpp",
+      "original_sha256": "3736e33851767172a426f183d1ae305dc3553378be686e6790c4151d96b194cf",
+      "cleaned_sha256": "bc17e25b2c2513138d1a084a38e328e348269a96d93b6f51da3b65edcdb8c39d"
     },
     {
-      "path": "device/kernels/sharded_plan.hpp",
-      "sha256": "d109bd3b6eacc482db70950c5f1e303d4db2160523dc1a26efd6fba33e8bfa78"
+      "path": "projects/block/basic_block/device/kernels/sharded_reader.cpp",
+      "original_sha256": "cc092f824633b2125ce0f3960d7de52ca757f2c0fd0ae02dcd26fdf061852c7c",
+      "cleaned_sha256": "fd7a1c05581261fab0184996a870780ef874de83318b0eed93a84ff970708a4d"
     },
     {
-      "path": "device/kernels/sharded_profile.hpp",
-      "sha256": "986e9c9e8a71a4c4c0c074e0f3c9eb183b9dbdaff9ac101c95063461d9b7b701"
+      "path": "projects/block/basic_block/device/kernels/sharded_writer.cpp",
+      "original_sha256": "dd8c0b3f0e8288daae4e81e8a7d29948a5f39ce9f505ecbcad43de88125c750c",
+      "cleaned_sha256": "9922764f121701c060c13d0c3520b8e55bf341797f95e194df96ec6ad01b8868"
     },
     {
-      "path": "device/kernels/sharded_reader.cpp",
-      "sha256": "6d7e5d1e3ade9d2898f9393aa120e44773c8fc053aff5a6790a32aee688d9b4a"
+      "path": "projects/block/basic_block/device/kernels/stream_common.hpp",
+      "original_sha256": "dbd752a61eab72e73cc0a7f987cd57038a5225cb87c046a34673c9ed52399179",
+      "cleaned_sha256": "c7b7a825de5bacd0a7e5cb47c93adb3f4386165c227baf38079dbb6b3ff45adc"
     },
     {
-      "path": "device/kernels/sharded_writer.cpp",
-      "sha256": "30d28508c3360c2a2ede45eb6ba218b134360b5e2d7e6379ccca112ce2ab68ff"
+      "path": "projects/block/basic_block/device/kernels/writer.cpp",
+      "original_sha256": "84be46115a4d2e86335fd52649baa898be5c68b58c437fae87aa29056158e47c",
+      "cleaned_sha256": "c9061504be8233c00b5d21157748d9ae0a25b116293d3489651be7db9c9affe2"
     },
     {
-      "path": "device/kernels/stream_common.hpp",
-      "sha256": "c3c5f16483b17fc31c81b7b198d4896660ad348004065c486ad744764dc01588"
+      "path": "projects/block/basic_block/device/l1_memory.hpp",
+      "original_sha256": "5b07934ab1f02bc862cb599088a26348e8ff861ca27e4e4f061009a999f51f7e",
+      "cleaned_sha256": "71dbbdd1c67b252646296898afbb153d47b469c411e35b49621dc066e604a323"
     },
     {
-      "path": "device/kernels/stream_profile.hpp",
-      "sha256": "fc4d3bfdf1d1d20aed33136a18446762556bc05fe0d20a0d41fcc026c6eb28a9"
+      "path": "projects/block/basic_block/device/program_factory.cpp",
+      "original_sha256": "f66d5b3341f92cfd74989d9f4fd10d86f03ccc17177e7a4495d9a161a41c7759",
+      "cleaned_sha256": "e43f8a655e76abe3b1e562323a5c184c4f6b58ebae6978811cf027febffb383b"
     },
     {
-      "path": "device/kernels/timing.hpp",
-      "sha256": "5fcfb7b848c86f79e0c36eb0f7fa6d547bc22312d1719310756d0e4874b3829b"
+      "path": "projects/block/basic_block/device/resident_program_factory.cpp",
+      "original_sha256": "e374bacdf7c85102304a3fa5599c5b5e89c2f69e3a1b5d90ba85e5944ea7e954",
+      "cleaned_sha256": "3bde984cac2687828aa733847ef1d34e6a5887dc591f9ca044f80ad58365a0f9"
     },
     {
-      "path": "device/kernels/writer.cpp",
-      "sha256": "d0a764aca2652bd19b86271b5336ca1f253c0223787d9571455d8316195c30d5"
+      "path": "projects/block/basic_block/device/sharded_program_factory.cpp",
+      "original_sha256": "77ada27068d0e427b048e36a9b085927b6a429f4767574676471ffe345c23074",
+      "cleaned_sha256": "62d4427154dc2e20a2689a9b4a31e0d23ff15f42e075ebcf9b6c11ea4a97365a"
     },
     {
-      "path": "device/l1_memory.hpp",
-      "sha256": "d548940338a4fd716b50aa688c33b6fa7994cd4c48c5659229974659097e58d3"
-    },
-    {
-      "path": "device/program_factory.cpp",
-      "sha256": "ba99fec18198a748944ebc8c05a0b43ce70e61d7c994330c702f3b80fcea22de"
-    },
-    {
-      "path": "device/resident_memory_report.hpp",
-      "sha256": "917d318882714d58224b21dfae16b396badd148e0db11d10445b9fec1b8e02e5"
-    },
-    {
-      "path": "device/resident_program_factory.cpp",
-      "sha256": "c42dc744c0744047e2e1f435cc6e87c8c99b77df84ab5b41b10548142510ffa0"
-    },
-    {
-      "path": "device/sharded_program_factory.cpp",
-      "sha256": "c51df6bfc4af102d8a8c52d9d9b426bf71a6668f0fb99116ab858245e30bc950"
-    },
-    {
-      "path": "device/timing_host.hpp",
-      "sha256": "342c768cb1cb95b9bc5dbbbcb3030c821555e9f7cff8ae9c8752c71e8ff4af85"
+      "path": "projects/block/basic_block/device/stream_program_factory.cpp",
+      "original_sha256": "4d6e49e800a0b67239fce2f3bfd1b06ccff94bf0d6ce010b5c1a9e43c917bb3d",
+      "cleaned_sha256": "6ced1fcab8185d6999797cac7fd999cb0dd5a1e861c1c9619705eb5d83e474f2"
     }
   ]
 }

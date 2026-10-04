@@ -3,7 +3,6 @@
 
 
 
-
 #include "device_operation.hpp"
 #include "host_common.hpp"
 #include "l1_memory.hpp"
@@ -14,7 +13,7 @@ using namespace tt::tt_metal;
 
 
 
-ProgramDescriptor BasicBlockDeviceOperation::create_resident_descriptor(
+ProgramDescriptor BasicBlockDeviceOperation::create_stream_descriptor(
     const operation_attributes_t& attrs,
     const tensor_args_t& tensors,
     tensor_return_value_t& outputs
@@ -22,53 +21,58 @@ ProgramDescriptor BasicBlockDeviceOperation::create_resident_descriptor(
 
 
     const auto grid = tensors.x.device()->compute_with_storage_grid_size();
-    const auto plan = detail::make_direct_plan(attrs, grid.x * grid.y);
-    TT_FATAL(plan.enabled, "Resident plan exceeds checked L1 budget");
-
-    const uint32_t input_channel_tiles = detail::tiles(attrs.in_channels),
-                   hidden_channel_tiles = detail::tiles(attrs.channels),
-                   output_channel_tiles = detail::tiles(attrs.out_channels);
+    const auto plan = detail::make_stream_plan(attrs, grid.x * grid.y);
     const auto all_cores = detail::core_ranges(plan.cores, grid.y);
     const uint32_t pool =
         detail::select_core_count(grid.x * grid.y, grid.x * grid.y, attrs.max_cores);
     const auto current =
         detail::query_l1_memory(tensors.x.device(), detail::core_ranges(pool, grid.y));
     TT_FATAL(
-        current.available_bytes >= uint64_t(plan.l1_tiles) * 2048 &&
+        current.available_bytes >= plan.required_bytes &&
             current.reserved_bytes == attrs.l1_reserved_bytes,
-        "L1 allocator changed during resident program creation: required_l1={} available_l1={}",
-        uint64_t(plan.l1_tiles) * 2048,
-        current.available_bytes
+        "L1 allocator changed during basic_block program creation: current_available={} "
+        "current_reserved={}",
+        current.available_bytes,
+        current.reserved_bytes
     );
+    TT_FATAL(
+        plan.enabled,
+        "basic_block strict L1 plan failed: required_l1={} available_l1={}",
+        plan.required_bytes,
+        plan.available_bytes
+    );
+
+    const uint32_t hidden = detail::tiles(attrs.channels), cout = detail::tiles(attrs.out_channels);
 
 
 
 
     ProgramDescriptor program;
-    detail::add_cb(program, 11, 18 * plan.queue_depth * hidden_channel_tiles, all_cores);
-    detail::add_cb(program, 16, 2 * plan.queue_depth * output_channel_tiles, all_cores);
-    if (attrs.stride == 2) {
-        detail::add_cb(program, 9, 2 * plan.queue_depth * input_channel_tiles, all_cores);
-    }
+
+    detail::add_cb(program, 0, plan.operand_slot_tiles * plan.cb_depth, all_cores);
+    detail::add_cb(program, 20, plan.ring * hidden, all_cores);
+    detail::add_cb(program, 21, plan.processing_tiles * hidden, all_cores);
+    detail::add_cb(program, 23, plan.weight_slot_tiles * plan.weight_depth, all_cores);
+    detail::add_cb(program, 16, plan.processing_tiles * cout * plan.out_depth, all_cores);
     detail::add_cb(program, 24, 1, all_cores);
 
-    detail::add_cb(program, 20, plan.ring * hidden_channel_tiles, all_cores);
-    detail::add_cb(program, 21, plan.block * hidden_channel_tiles, all_cores);
-    detail::add_cb(program, 22, plan.ring * input_channel_tiles, all_cores);
-    detail::add_cb(program, 23, plan.parameters, all_cores);
 
 
-
-    auto reader = detail::kernel("resident_reader.cpp", all_cores);
+    auto reader = detail::kernel("reader.cpp", all_cores);
     reader.config = ReaderConfigDescriptor{};
-
     detail::accessor(reader, tensors.x);
     reader.named_compile_time_args = {
         {"has_downsample", uint32_t(detail::has_downsample(attrs))},
         {"stride", attrs.stride},
         {"block_tiles", plan.block},
         {"max_input_tiles", plan.ring},
-        {"parameter_tiles", plan.parameters},
+        {"processing_tiles", plan.processing_tiles},
+        {"operand_slot_tiles", plan.operand_slot_tiles},
+        {"weight_chunk", plan.weight_chunk},
+        {"weight_slot_tiles", plan.weight_slot_tiles},
+        {"cb_depth", plan.cb_depth},
+        {"weight_depth", plan.weight_depth},
+        {"out_depth", plan.out_depth},
         {"batch_size", attrs.batch_size},
         {"input_height", attrs.input_height},
         {"input_width", attrs.input_width},
@@ -79,13 +83,13 @@ ProgramDescriptor BasicBlockDeviceOperation::create_resident_descriptor(
 
 
 
-    auto compute = detail::kernel("resident_compute.cpp", all_cores);
+    auto compute = detail::kernel("compute.cpp", all_cores);
     compute.config = detail::compute_config();
     compute.named_compile_time_args = reader.named_compile_time_args;
 
 
 
-    auto writer = detail::kernel("resident_writer.cpp", all_cores);
+    auto writer = detail::kernel("writer.cpp", all_cores);
     writer.config = WriterConfigDescriptor{};
     writer.named_compile_time_args = reader.named_compile_time_args;
 
@@ -145,8 +149,8 @@ ProgramDescriptor BasicBlockDeviceOperation::create_resident_descriptor(
             core,
             {
                 outputs[0].buffer(),
-                count * output_channel_tiles,
-                start * output_channel_tiles,
+                count * cout,
+                start * cout,
             }
         );
     }

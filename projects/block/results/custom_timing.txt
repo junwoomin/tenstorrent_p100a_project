@@ -1,0 +1,23 @@
+ResNet50 Layer Timing
+conv1                    :   1.6188 ms
+pool1                    :   0.3698 ms
+to_tile                  :   0.1380 ms
+layer1_0                 :   0.4864 ms
+layer1_1                 :   0.5296 ms
+layer1_2                 :   0.5209 ms
+layer2_0                 :   1.4406 ms
+layer2_1                 :   0.5379 ms
+layer2_2                 :   0.5369 ms
+layer2_3                 :   0.5044 ms
+layer3_0                 :   1.8605 ms
+layer3_1                 :   0.6299 ms
+layer3_2                 :   0.5975 ms
+layer3_3                 :   0.5977 ms
+layer3_4                 :   0.5974 ms
+layer3_5                 :   0.6014 ms
+layer4_0                 :   3.4890 ms
+layer4_1                 :   0.9544 ms
+layer4_2                 :   0.9492 ms
+avgpool                  :   0.2745 ms
+TOTAL                     : 17.8934 ms
+

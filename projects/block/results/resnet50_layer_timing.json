@@ -1,0 +1,132 @@
+{
+  "input": {
+    "batch": 8,
+    "channels": 3,
+    "height": 256,
+    "width": 256,
+    "logical_order": "NCHW"
+  },
+  "hardware": "Tenstorrent P100a (Blackhole)",
+  "provenance": "User-supplied timing output, received 2026-10-04; not independently reproduced.",
+  "layers": [
+    {
+      "name": "conv1",
+      "custom_ms": 1.6188,
+      "ttnn_ms": 1.5755
+    },
+    {
+      "name": "pool1",
+      "custom_ms": 0.3698,
+      "ttnn_ms": 0.4116
+    },
+    {
+      "name": "to_tile",
+      "custom_ms": 0.138,
+      "ttnn_ms": null
+    },
+    {
+      "name": "layer1_0",
+      "custom_ms": 0.4864,
+      "ttnn_ms": 1.6389
+    },
+    {
+      "name": "layer1_1",
+      "custom_ms": 0.5296,
+      "ttnn_ms": 1.0819
+    },
+    {
+      "name": "layer1_2",
+      "custom_ms": 0.5209,
+      "ttnn_ms": 1.0694
+    },
+    {
+      "name": "layer2_0",
+      "custom_ms": 1.4406,
+      "ttnn_ms": 1.1583
+    },
+    {
+      "name": "layer2_1",
+      "custom_ms": 0.5379,
+      "ttnn_ms": 0.6933
+    },
+    {
+      "name": "layer2_2",
+      "custom_ms": 0.5369,
+      "ttnn_ms": 0.6855
+    },
+    {
+      "name": "layer2_3",
+      "custom_ms": 0.5044,
+      "ttnn_ms": 0.6905
+    },
+    {
+      "name": "layer3_0",
+      "custom_ms": 1.8605,
+      "ttnn_ms": 0.9054
+    },
+    {
+      "name": "layer3_1",
+      "custom_ms": 0.6299,
+      "ttnn_ms": 0.5807
+    },
+    {
+      "name": "layer3_2",
+      "custom_ms": 0.5975,
+      "ttnn_ms": 0.5812
+    },
+    {
+      "name": "layer3_3",
+      "custom_ms": 0.5977,
+      "ttnn_ms": 0.5613
+    },
+    {
+      "name": "layer3_4",
+      "custom_ms": 0.5974,
+      "ttnn_ms": 0.5471
+    },
+    {
+      "name": "layer3_5",
+      "custom_ms": 0.6014,
+      "ttnn_ms": 0.5507
+    },
+    {
+      "name": "layer4_0",
+      "custom_ms": 3.489,
+      "ttnn_ms": 0.8672
+    },
+    {
+      "name": "layer4_1",
+      "custom_ms": 0.9544,
+      "ttnn_ms": 0.54
+    },
+    {
+      "name": "layer4_2",
+      "custom_ms": 0.9492,
+      "ttnn_ms": 0.5355
+    },
+    {
+      "name": "avgpool",
+      "custom_ms": 0.2745,
+      "ttnn_ms": 0.2428
+    }
+  ],
+  "reported_total_ms": {
+    "custom": 17.8934,
+    "ttnn": 15.3131
+  },
+  "sum_of_displayed_layers_ms": {
+    "custom": 17.2348,
+    "ttnn": 14.9168
+  },
+  "timing_scope": "Displayed layers through avgpool. FC is not present in the supplied timing output.",
+  "measurement_details": {
+    "sdk_revision": null,
+    "warmup_count": null,
+    "sample_count": null,
+    "synchronization": null,
+    "timing_statistic": null,
+    "normalization_match": null,
+    "correctness_metrics": null
+  }
+}
+
