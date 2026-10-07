@@ -1,0 +1,18 @@
+{
+  "analysis_date": "2026-10-07",
+  "scope": "Benchmark K only",
+  "settings": 440,
+  "samples": 6600,
+  "source_files": [
+    {
+      "name": "12_DRAM_대용량_연산_성능(1).xlsx",
+      "bytes": 1474120,
+      "sha256": "d18c5beaf75667966f62f2dc741214730c6c7314cbaefb669473813530f0edce"
+    },
+    {
+      "name": "P100a_NPU_성능_종합_K신규(1).xlsx",
+      "bytes": 279629,
+      "sha256": "4754f8fcd596805c68f43b54ff34595ca27d2cf7b369efbae342e8678768f609"
+    }
+  ]
+}

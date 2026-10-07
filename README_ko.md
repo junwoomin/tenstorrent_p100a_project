@@ -28,3 +28,7 @@ P100a(Blackhole)에서 TT-Metalium으로 ResNet bottleneck을 결합하고, 코�
 
 기존 VGG와 이전 Block 자료는 현재 트리에서 정리했으며 이전 버전은 Git 이력에 남아 있습니다. 이번 변경은 소스 주석 제거와 문서·결과 교체입니다. 커널 최적화를 추가하거나 장치 실행을 재현한 결과는 아닙니다.
 
+## P100a 벤치마크 분석
+
+- [Benchmark K 분석·Excel·그래프](분석/README.md): BF16 DRAM 원소 연산 440조건·6,600표본의 코어 확장성, pipeline 효과, Host 변동성과 측정 한계.
+

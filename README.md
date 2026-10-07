@@ -28,3 +28,7 @@ The displayed layer sums differ from TOTAL: **17.2348 ms** for custom and **14.9
 
 The current tree replaces the previous VGG and Block snapshot; earlier versions remain in Git history. This update removes source comments and replaces documentation/results. It does not introduce a kernel optimization or claim a reproduced device run.
 
+## P100a benchmark analysis
+
+- [Benchmark K analysis, Excel workbook and graphs](분석/README.md): 440 BF16 DRAM arithmetic configurations and 6,600 recorded timing samples, with strong/weak scaling, pipeline comparisons and measurement limits.
+

@@ -1,0 +1,9 @@
+{
+  "statistics_verified": 13552,
+  "raw_cells_verified": 151823,
+  "raw_samples": 6600,
+  "settings": 440,
+  "native_charts": 9,
+  "source_edit_recalculation": "Passed, raw values restored before export",
+  "verification_scope": "Offline statistics/formulas/export; no device rerun"
+}
