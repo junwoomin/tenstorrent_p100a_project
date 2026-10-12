@@ -4,10 +4,10 @@ P100a/Blackhole의 대용량 BF16 원소별 ADD·SUB·MUL·DIV 실험을 분석�
 
 분석일: 2026-10-07. 두 제공 Excel은 같은 Benchmark K 실험의 상세본·종합본이다. 기존 A–J 실험은 이 자료에 포함되지 않는다. 이번 작업은 제공된 측정값의 분석이며 장치에서 새 벤치마크를 실행하지 않았다.
 
-- [분석 Excel 다운로드](P100a_Benchmark_K_분석.xlsx): 설명, 원자료, 계산식, 편집 가능한 native 차트 9개
-- [440조건 통계 CSV](data/benchmark_k_summary.csv)
-- [6,600표본 원자료 CSV.gz](data/benchmark_k_raw.csv.gz)
-- [원본 파일 식별·SHA256](data/source_manifest.json)
+- [분석 Excel 다운로드](../../분석/P100a_Benchmark_K_분석.xlsx): 설명, 원자료, 계산식, 편집 가능한 native 차트 9개
+- [440조건 통계 CSV](../../분석/data/benchmark_k_summary.csv)
+- [6,600표본 원자료 CSV.gz](../../분석/data/benchmark_k_raw.csv.gz)
+- [원본 파일 식별·SHA256](../../분석/data/source_manifest.json)
 
 ## 측정 조건과 시간 경계
 
@@ -49,7 +49,7 @@ MUL은 원소별 곱셈이다. Conv/matmul의 matrix engine 성능으로 환산�
 | MUL | 15.9942배 | 99.96% | 1.9997배 | 49.99% |
 | DIV | 15.9756배 | 99.85% | 1.9990배 | 49.97% |
 
-![256MiB strong scaling](graphs/01_strong_scaling.png)
+![256MiB strong scaling](../../분석/graphs/01_strong_scaling.png)
 
 ADD/SUB는 8코어까지 거의 이상적인 확장이고 16코어에서 효율이 약 79.5~79.6%로 낮아진다. 그래도 8→16코어로 약 37% 시간을 줄이므로 8코어가 최적이라는 근거는 아니다. MUL/DIV는 16코어까지 약 99.8~100%의 strong scaling 효율을 보인다.
 
@@ -66,7 +66,7 @@ Strong efficiency는 `T1/TN/N`이다. 실제 코어 utilization을 직접 계측
 | MUL | 5.237608 | 1.840805 | 4.420970 | 1.065139 |
 | DIV | 7.672321 | 1.229633 | 6.902632 | 0.642951 |
 
-![단계별 active와 wall](graphs/04_stage_times.png)
+![단계별 active와 wall](../../분석/graphs/04_stage_times.png)
 
 Read/SFPU/Write는 동일 critical core에서 해당 구간의 누적 active 시간이다. 코어별 시간을 더해 wall로 사용하지 않았다. Active 구간은 서로 겹칠 수 있어 누적 막대로 쌓거나 합을 전체 실행시간으로 읽으면 안 된다.
 
@@ -89,7 +89,7 @@ MUL SFPU가 ADD보다 약 6.31배 느린 정확한 이유는 미확인이다. [�
 | MUL | 7.234121 | 5.237608 | 1.3812배 | 27.60% |
 | DIV | 9.537607 | 7.672321 | 1.2431배 | 19.56% |
 
-![Pipeline 비교](graphs/03_pipeline_comparison.png)
+![Pipeline 비교](../../분석/graphs/03_pipeline_comparison.png)
 
 동일 조건 220쌍 모두 Device wall 기준으로 pipeline이 빨랐다. 그러나 CB 용량도 diagnostic 48KiB/core→pipeline 96KiB/core로 증가한다. 16코어 기준 768KiB→1,536KiB이며 별도 계측 공간은 제외한 값이다. 실행 구조와 메모리 용량의 변경이 함께 있으므로 순수 overlap 효과로 부르지 않는다.
 
@@ -113,7 +113,7 @@ MUL SFPU가 ADD보다 약 6.31배 느린 정확한 이유는 미확인이다. [�
 | 512 | 402.886 | 403.471 | 153.770 | 104.985 |
 | 1024 | 404.422 | 404.240 | 153.791 | 104.997 |
 
-![크기별 처리율](graphs/02_size_throughput.png)
+![크기별 처리율](../../분석/graphs/02_size_throughput.png)
 
 작은 데이터는 고정 비용의 영향이 크고, 큰 데이터에서는 처리율이 수렴한다. 동일 코어 수에서 크기를 두 배 늘리면 시간도 거의 두 배가 된다. 1GiB ADD의 404.422GB/s와 256MiB의 404.361GB/s 차이는 약 0.015%여서 1GiB가 유의미하게 최적이라는 근거가 약하다.
 
@@ -139,7 +139,7 @@ MUL SFPU가 ADD보다 약 6.31배 느린 정확한 이유는 미확인이다. [�
 | MUL | 10.472976 | 10.473736 | 10.474157 | 0.011% |
 | DIV | 15.322753 | 15.336853 | 15.341298 | 0.121% |
 
-![Weak scaling](graphs/05_weak_scaling.png)
+![Weak scaling](../../분석/graphs/05_weak_scaling.png)
 
 ADD/SUB는 코어당 작업량이 같아도 16코어에서 약 26% 느려진다. 따라서 strong scaling 둔화를 작은 코어당 작업량만으로 설명하기 어렵다. MUL/DIV는 코어당 작업을 거의 동일한 시간에 완료한다.
 
@@ -154,7 +154,7 @@ ADD/SUB는 코어당 작업량이 같아도 16코어에서 약 26% 느려진다.
 | MUL | 0.023485 | 0.050993 | 0.097946 | 36.49% |
 | DIV | 0.032830 | 0.124475 | 0.275156 | 63.08% |
 
-![모든 원시 표본의 Device와 Host 변동](graphs/06_host_variability.png)
+![모든 원시 표본의 Device와 Host 변동](../../분석/graphs/06_host_variability.png)
 
 ADD와 SUB의 Device 시간은 거의 같은데 Host 중앙값은 약 3배 차이 난다. 산술 성능 차이로 해석할 수 없다. MUL1MiB·4코어 pipeline은 Host 0.092445~2.175793ms, CV 약 229.4%지만 Device CV는 약 0.0343%다. 작은 작업의 최적 코어 수나 고정 launch overhead를 이 sweep의 Host 중앙값만으로 결정하면 안 된다.
 

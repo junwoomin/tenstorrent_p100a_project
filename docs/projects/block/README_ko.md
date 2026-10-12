@@ -52,11 +52,11 @@ TTNN 내부에 통합하는 연산 소스이며 독립 빌드 프로젝트는 �
 
 ## 자료
 
-- [주석을 제거한 ZIP](basic_block_v7_gpt_stable.zip)
-- [공개 소스](basic_block/)
-- [측정값](results/resnet50_layer_timing.json)
-- [제공된 커스텀 시간 출력](results/custom_timing.txt) · [TTNN 시간 출력](results/ttnn_timing.txt)
-- [원본·정리본 해시와 확인 내역](results/source_manifest.json)
+- [주석을 제거한 ZIP](../../../projects/block/basic_block_v7_gpt_stable.zip)
+- [공개 소스](../../../projects/block/basic_block/)
+- [측정값](../../../projects/block/results/resnet50_layer_timing.json)
+- [제공된 커스텀 시간 출력](../../../projects/block/results/custom_timing.txt) · [TTNN 시간 출력](../../../projects/block/results/ttnn_timing.txt)
+- [원본·정리본 해시와 확인 내역](../../../projects/block/results/source_manifest.json)
 
 다음 작업은 두 구현의 정확성과 측정 조건을 맞춰 기록하고 TOTAL 차이를 확인한 뒤, `layer4_0`, `layer3_0`, `layer2_0`을 프로파일링하여 최적화 방향을 정하는 것입니다.
 

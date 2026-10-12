@@ -1,6 +1,6 @@
 # P100a Custom Bottleneck — GPT-generated stable version (v7)
 
-[한국어](README_ko.md) · [Project overview](../../README.md)
+[한국어](README_ko.md) · [Project overview](../../../README.md)
 
 This is the owner's currently used **GPT-generated stable version**, supplied as `basic_block_v7_no_debug(1).zip`. All C++ and CMake comments have been removed. Code tokens, string literals and line boundaries are preserved across all **33 source files**; the cleaned ZIP has also been checked against the published sources. These are offline checks, not an SDK build or hardware validation.
 
@@ -52,11 +52,11 @@ The reported TOTAL is **16.85% slower** for custom. Early `layer1_*` and `layer2
 
 ## Artifacts
 
-- [Comment-free ZIP](basic_block_v7_gpt_stable.zip)
-- [Published source](basic_block/)
-- [Timing values](results/resnet50_layer_timing.json)
-- [Original timing outputs](results/custom_timing.txt) · [TTNN output](results/ttnn_timing.txt)
-- [Original/cleaned source hashes and checks](results/source_manifest.json)
+- [Comment-free ZIP](../../../projects/block/basic_block_v7_gpt_stable.zip)
+- [Published source](../../../projects/block/basic_block/)
+- [Timing values](../../../projects/block/results/resnet50_layer_timing.json)
+- [Original timing outputs](../../../projects/block/results/custom_timing.txt) · [TTNN output](../../../projects/block/results/ttnn_timing.txt)
+- [Original/cleaned source hashes and checks](../../../projects/block/results/source_manifest.json)
 
 Next: record matched correctness and timing conditions, explain the TOTAL discrepancy, then profile `layer4_0`, `layer3_0` and `layer2_0` before choosing a performance change.
 

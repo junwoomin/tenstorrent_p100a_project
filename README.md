@@ -1,6 +1,6 @@
 # Tenstorrent P100a — ResNet50 Custom Block
 
-[한국어](README_ko.md)
+[한국어](docs/README_ko.md)
 
 Current snapshot: **GPT-generated stable version (v7)**, based on the owner's `basic_block_v7_no_debug(1).zip`. “Stable” describes the version currently used by the owner for the reported workload; broader correctness and training validation are not established by this timing record.
 
@@ -21,7 +21,7 @@ The displayed layer sums differ from TOTAL: **17.2348 ms** for custom and **14.9
 
 ## Code and results
 
-- [Source and layer timings](projects/block/README.md)
+- [Source and layer timings](docs/projects/block/README.md)
 - [Comment-free source ZIP](projects/block/basic_block_v7_gpt_stable.zip)
 - [Timing record](projects/block/results/resnet50_layer_timing.json)
 - [Source hashes and offline checks](projects/block/results/source_manifest.json)
@@ -30,5 +30,5 @@ The current tree replaces the previous VGG and Block snapshot; earlier versions 
 
 ## P100a benchmark analysis
 
-- [Benchmark K analysis, Excel workbook and graphs](분석/README.md): 440 BF16 DRAM arithmetic configurations and 6,600 recorded timing samples, with strong/weak scaling, pipeline comparisons and measurement limits.
+- [Benchmark K analysis, Excel workbook and graphs](docs/분석/README.md): 440 BF16 DRAM arithmetic configurations and 6,600 recorded timing samples, with strong/weak scaling, pipeline comparisons and measurement limits.
 
